@@ -13,7 +13,6 @@ import {
     DocumentFormattingParams,
     TextDocumentChangeEvent,
 } from 'vscode-languageserver';
-// import { TextDocument as TD } from 'vscode-languageserver-textdocument';
 import { TextDocument, TextEdit } from 'vscode-languageserver-textdocument';
 
 import { commands } from './linter';
@@ -38,16 +37,7 @@ let connection = createConnection(ProposedFeatures.all);
 const docManager = new DocumentManager(connection);
 
 let lastChangeConfigEventReceived: number;
-const delayBeforeLintAgainAfterConfigUpdate = 3_000;
-
-// Create a simple text document manager. The text document manager
-// supports full document sync only
-// let documents: TextDocuments<TextDocument> = new TextDocuments<TextDocument>(TD);
-
-// let hasConfigurationCapability: boolean = false;
-// let hasWorkspaceFolderCapability: boolean = false;
-// let hasDiagnosticRelatedInformationCapability: boolean = false;
-// let hasCodeActionLiteralsCapability: boolean = false;
+const delayBeforeLintAgainAfterConfigUpdate = 1_500;
 
 connection.onInitialize((params: InitializeParams) => {
     return {
@@ -98,7 +88,7 @@ connection.onDidChangeConfiguration(async (change) => {
             // Revalidate all open text documents
             for (const doc of docManager.documents.all()) {
                 const settings = await docManager.getDocumentSettings(doc.uri);
-                if (!settings?.enabled) {
+                if (settings?.strategy === 'user') {
                     await resetDiagnostics(doc.uri);
                     continue;
                 }
@@ -118,7 +108,7 @@ connection.onExecuteCommand(async (params: ExecuteCommandParams) => {
 connection.onDocumentFormatting(async (params: DocumentFormattingParams): Promise<TextEdit[]> => {
     const { textDocument } = params;
     const settings = await docManager.getDocumentSettings(textDocument.uri);
-    if (!settings?.enabled) { return Promise.reject(); }
+    if (settings?.strategy === 'user') { return Promise.reject(); }
     const document = docManager.getDocumentFromUri(textDocument.uri);
     const textEdits: TextEdit[] = await docManager.formatTextDocument(document);
     // If document has been updated, lint again the sources
@@ -156,7 +146,7 @@ connection.onNotification(ActiveDocumentNotification.type, (params) => {
 docManager.documents.onDidOpen(async (event) => {
     const textDocument: TextDocument = docManager.getDocumentFromUri(event.document.uri, true);
     const settings = await docManager.getDocumentSettings(textDocument.uri);
-    if (!settings?.enabled) { return; }
+    if (settings?.strategy === 'user') { return; }
     await docManager.validateTextDocument(textDocument);
 });
 
@@ -164,7 +154,7 @@ docManager.documents.onDidOpen(async (event) => {
 // when the text document first opened or when its content has changed.
 docManager.documents.onDidChangeContent(async (change: TextDocumentChangeEvent<TextDocument>) => {
     const settings = await docManager.getDocumentSettings(change.document.uri);
-    if (!settings?.enabled) { return; }
+    if (settings?.strategy === 'user') { return; }
     docManager.setCurrentDocumentUri(change.document.uri);
     if (settings?.strategy === 'onType') {
         await docManager.validateTextDocument(change.document);
@@ -175,7 +165,11 @@ docManager.documents.onDidChangeContent(async (change: TextDocumentChangeEvent<T
 docManager.documents.onDidSave(async event => {
     const textDocument: TextDocument = docManager.getDocumentFromUri(event.document.uri, true);
     const settings = await docManager.getDocumentSettings(textDocument.uri);
-    if (!settings?.enabled) { return; }
+    if (settings?.strategy === 'user') {
+        // TODO: Should the diagnostics be resetted when document is saved?
+        // await resetDiagnostics(textDocument.uri);
+        return;
+    }
     if (settings.strategy === 'onSave') {
         await docManager.validateTextDocument(textDocument);
     }

@@ -1,13 +1,12 @@
-import { TextDocuments, Diagnostic, TextDocumentIdentifier } from 'vscode-languageserver';
+import { TextDocuments, Diagnostic } from 'vscode-languageserver';
 import { TextDocument, DocumentUri, TextEdit } from 'vscode-languageserver-textdocument';
 import { executeLinter } from './linter';
-import { applyQuickFixes, applyQuickFixesInFile } from './codeActions';
+import { applyQuickFixes } from './codeActions';
+import { AlexSettings } from './alexVSCode';
 
 // Usable settings
-export interface VsCodeAlexLinterSettings {
-    enabled: boolean;
+export interface VsCodeAlexLinterSettings extends AlexSettings{
     strategy: string;
-    maxNumberOfProblems: number;
 }
 
 // Documents manager
@@ -38,7 +37,6 @@ export class DocumentManager {
 
     // Commands execution
     async executeCommand(params: any) {
-        // console.log(`Request execute command ${ JSON.stringify(params) }`);
         if (params.command === 'alexLinter.lint') {
             const document: TextDocument = this.getDocumentFromUri(this.currentTextDocumentUri)!;
             await this.validateTextDocument(document);

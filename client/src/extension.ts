@@ -5,7 +5,7 @@ import {
     LanguageClient,
     LanguageClientOptions,
     ServerOptions,
-    TransportKind,
+    TransportKind
 } from 'vscode-languageclient';
 
 const DIAGNOSTICS_COLLECTION_NAME = 'AlexLinter';
@@ -58,6 +58,7 @@ export function activate(context: ExtensionContext) {
         serverOptions,
         clientOptions
     );
+
     // Start the client. This will also launch the server
     context.subscriptions.push(
         client.start(),
