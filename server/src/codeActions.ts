@@ -61,7 +61,7 @@ function createQuickFixCodeActions(diagnostic: Diagnostic, quickFix: any, textDo
         title: 'Fix: ' + quickFix.label,
         kind: CodeActionKind.QuickFix,
         command: {
-            command: 'alexLinter.quickFix',
+            command: 'alex-linter.quickFix',
             title: 'Fix: ' + quickFix.label,
             arguments: [diagnostic, textDocumentUri, quickFix.value],
         },
@@ -89,7 +89,7 @@ export async function applyQuickFixes(diagnostic: Diagnostic, textDocumentUri: s
     const docLinter = docManager.getDocLinter(textDocument.uri);
     // console.log(`Start fixing ${ textDocument.uri }`);
     await docManager.connection.sendNotification(StatusNotification.type, {
-        state: 'alexLinter.applyQuickFix',
+        state: 'alex-linter.applyQuickFix',
         documents: [{ documentUri: textDocument.uri }],
         lastFileName: textDocument.uri
     });
