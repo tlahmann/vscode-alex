@@ -170,7 +170,7 @@ docManager.documents.onDidSave(async event => {
         // await resetDiagnostics(textDocument.uri);
         return;
     }
-    if (settings.strategy === 'onSave') {
+    if (settings?.strategy === 'onSave') {
         await docManager.validateTextDocument(textDocument);
     }
 });
