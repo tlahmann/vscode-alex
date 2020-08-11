@@ -13,4 +13,4 @@ media/**
 client/**
 !client/out/extension.js
 server/**
-!server/out/eslintServer.js
+!server/out/server.js
