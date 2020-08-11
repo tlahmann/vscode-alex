@@ -37,11 +37,11 @@ export class DocumentManager {
 
     // Commands execution
     async executeCommand(params: any) {
-        if (params.command === 'alexLinter.lint') {
+        if (params.command === 'alex-linter.lint') {
             const document: TextDocument = this.getDocumentFromUri(this.currentTextDocumentUri)!;
             await this.validateTextDocument(document);
         }
-        else if (params.command === 'alexLinter.quickFix') {
+        else if (params.command === 'alex-linter.quickFix') {
             const [diagnostic, textDocumentUri, value] = params.arguments!;
             await applyQuickFixes(diagnostic, textDocumentUri, value, this);
         }
@@ -66,7 +66,7 @@ export class DocumentManager {
         if (!result) {
             result = this.connection.workspace.getConfiguration({
                 scopeUri: resource,
-                section: 'alexLinter'
+                section: 'alex-linter'
             });
             this.documentSettings.set(resource, result!);
         }

@@ -24,8 +24,8 @@ namespace StatusNotification {
 }
 
 // Create commands
-const COMMAND_LINT = Command.create('Lint', 'alexLinter.lint');
-const COMMAND_LINT_QUICKFIX = Command.create('Quick fix', 'alexLinter.quickFix');
+const COMMAND_LINT = Command.create('Lint', 'alex-linter.lint');
+const COMMAND_LINT_QUICKFIX = Command.create('Quick fix', 'alex-linter.quickFix');
 export const commands = [
     COMMAND_LINT,
     COMMAND_LINT_QUICKFIX

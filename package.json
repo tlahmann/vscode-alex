@@ -1,6 +1,6 @@
 {
     "name": "alex-linter",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "displayName": "AlexJS Linter",
     "description": "Find gender favouring, race related, religion inconsiderate or other unequal phrasing",
     "publisher": "tlahmann",
@@ -26,7 +26,7 @@
         "onLanguage:plaintext",
         "onLanguage:markdown",
         "onLanguage:latex",
-        "onCommand:alexLinter.lint"
+        "onCommand:alex-linter.lint"
     ],
     "main": "./client/out/extension",
     "contributes": {
@@ -34,7 +34,7 @@
             "type": "object",
             "title": "AlexJS Linter",
             "properties": {
-                "strategy": {
+                "alex-linter.strategy": {
                     "type": "string",
                     "default": "onSave",
                     "description": "Sets when the Alex linter checks for inconsiderate writing",
@@ -49,12 +49,12 @@
                         "Check the document on user initiation"
                     ]
                 },
-                "noBinary": {
+                "alex-linter.noBinary": {
                     "type": "boolean",
                     "default": false,
                     "description": "Control whether AlexJS Linter warns for pairs like 'he or she'."
                 },
-                "profanitySureness": {
+                "alex-linter.profanitySureness": {
                     "type": "string",
                     "default": "maybe",
                     "description": "The profanity sureness is a minimum rating for alex to check for. If set to 'maybe' then alex will warn for the levels 'maybe' and 'likely' profanities, but not for 'unlikely' profanity.",
@@ -73,7 +73,7 @@
         },
         "commands": [
             {
-                "command": "alexLinter.lint",
+                "command": "alex-linter.lint",
                 "title": "AlexLiner: Check for insensitive, inconsiderate writing"
             }
         ]

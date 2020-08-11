@@ -29,9 +29,9 @@ If you encounter any issues, feel free to open a ticket on [github](https://gith
 
 | Parameter                      | Description                                                                           | Default |
 | ------------------------------ | ------------------------------------------------------------------------------------- | ------- |
-| `alexLinter.strategy`          | Run the linter on save (onSave), on type (onType) or on user initiation (user)        | onSave  |
-| `alexLinter.noBinary`          | Check if pairs like 'he or she' or 'garbageman or garbagewoman' are considered errors | false   |
-| `alexLinter.profanitySureness` | Set the level of profanity check. Possible values are 'likely', 'maybe' and 'unlikely'. If set to 'maybe' words like 'addict' and 'asshat' are considered profanity. If set to 'likely' the word 'addict is not marked with a warning. | maybe   |
+| `alex-linter.strategy`          | Run the linter on save (onSave), on type (onType) or on user initiation (user)        | onSave  |
+| `alex-linter.noBinary`          | Check if pairs like 'he or she' or 'garbageman or garbagewoman' are considered errors | false   |
+| `alex-linter.profanitySureness` | Set the level of profanity check. Possible values are 'likely', 'maybe' and 'unlikely'. If set to 'maybe' words like 'addict' and 'asshat' are considered profanity. If set to 'likely' the word 'addict is not marked with a warning. | maybe   |
 
 ## Future features
 

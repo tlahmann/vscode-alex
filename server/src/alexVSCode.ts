@@ -24,7 +24,7 @@ export class AlexVSCode {
     get settings(): AlexSettings { return this._settings; }
 
     constructor (currentSettings: AlexSettings) {
-        const prof = currentSettings.profanitySureness as unknown as string;
+        const prof = currentSettings?.profanitySureness as unknown as string;
         this._settings = {
             ...currentSettings,
             profanitySureness: ['unlikely', 'maybe', 'likely'].indexOf(prof)
