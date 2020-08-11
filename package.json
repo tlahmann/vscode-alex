@@ -80,8 +80,11 @@
     },
     "scripts": {
         "compile": "tsc -b",
+        "webpack": "npm run clean && webpack --mode production --config ./client/webpack.config.js && webpack --mode production --config ./server/webpack.config.js",
+        "webpack:dev": "npm run clean && webpack --mode none --config ./client/webpack.config.js && webpack --mode none --config ./server/webpack.config.js",
         "watch": "tsc -b -w",
         "postinstall": "cd server && npm install && cd ../client && npm install && cd ..",
+        "clean": "rimraf client/out && rimraf server/out",
         "test": "sh ./scripts/e2e.sh"
     },
     "devDependencies": {
@@ -90,7 +93,12 @@
         "@types/vscode": "^1.47",
         "eslint": "^7.0.0",
         "is-md": "^2.0.0",
-        "typescript": "^3.9"
+        "merge-options": "^2.0.0",
+        "rimraf": "^3.0.2",
+        "ts-loader": "^8.0.2",
+        "typescript": "^3.9",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12"
     },
     "dependencies": {
         "vscode-languageclient": "^6.1.3"
