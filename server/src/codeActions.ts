@@ -58,11 +58,11 @@ function createQuickFixCodeActions(diagnostic: Diagnostic, quickFix: any, textDo
 
     // Quick fix only this error
     const quickFixAction: CodeAction = {
-        title: 'Fix: ' + quickFix.label,
+        title: quickFix.label,
         kind: CodeActionKind.QuickFix,
         command: {
             command: 'alex-linter.quickFix',
-            title: 'Fix: ' + quickFix.label,
+            title: quickFix.label,
             arguments: [diagnostic, textDocumentUri, quickFix.value],
         },
         diagnostics: [diagnostic],
