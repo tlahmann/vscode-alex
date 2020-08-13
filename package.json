@@ -28,6 +28,10 @@
         "onLanguage:latex",
         "onCommand:alex-linter.lint"
     ],
+    "categories": [
+        "Linters",
+        "Other"
+    ],
     "main": "./client/out/extension",
     "contributes": {
         "configuration": {
