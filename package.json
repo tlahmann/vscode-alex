@@ -81,13 +81,15 @@
     "scripts": {
         "compile": "tsc -b",
         "lint": "eslint client/src --ext ts && eslint server/src --ext ts",
-		"lint:fix": "eslint client/src --ext ts --fix && eslint server/src --ext ts --fix",
+        "lint:fix": "eslint client/src --ext ts --fix && eslint server/src --ext ts --fix",
+        "test": "node ./client/out/test/runTest.js",
+        "pretest": "npm run compile && npm run lint",
+        "pretest:verbose": "npm run compile && npm run lint",
         "webpack": "npm run clean && webpack --mode production --config ./client/webpack.config.js && webpack --mode production --config ./server/webpack.config.js",
         "webpack:dev": "npm run clean && webpack --mode none --config ./client/webpack.config.js && webpack --mode none --config ./server/webpack.config.js",
         "watch": "tsc -b -w",
         "postinstall": "cd server && npm install && cd ../client && npm install && cd ..",
-        "clean": "rimraf client/out && rimraf server/out",
-        "test": "sh ./scripts/e2e.sh"
+        "clean": "rimraf client/out && rimraf server/out"
     },
     "devDependencies": {
         "@types/mocha": "^8.0.1",
@@ -98,9 +100,12 @@
         "eslint": "^7.6.0",
         "is-md": "^2.0.0",
         "merge-options": "^2.0.0",
+        "mocha": "^8.1.1",
+        "nyc": "^15.1.0",
         "rimraf": "^3.0.2",
         "ts-loader": "^8.0.2",
         "typescript": "^3.9",
+        "vscode-test": "^1.4.0",
         "webpack": "^4.44.1",
         "webpack-cli": "^3.3.12"
     },
