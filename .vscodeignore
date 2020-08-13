@@ -6,6 +6,8 @@
 **/tsconfig.json
 **/tsconfig.base.json
 **/tslint.json
+**/.nyc_output/**
+coverage/**
 webpack.config.js
 **/example.*
 media/**
