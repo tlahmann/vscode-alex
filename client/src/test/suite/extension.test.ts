@@ -14,6 +14,7 @@ const extensionId = 'tlahmann.alex-linter';
 const testDocs: any = {
 	'textfile': {
 		path: 'example.txt',
+		numberOfProblems: 7,
 		doc: null
 	}
 };
@@ -22,8 +23,6 @@ const testDocs: any = {
 const numberOfAlexLinterCommands = 2;
 
 suite('VsCode AlexLinter Test Suite', async () => {
-	vscode.window.showInformationMessage('Start all VsCode Alex Lint tests');
-
 	// Check extension is available
 	test("1.0 AlexLinter extension is available", async () => {
 		testDocs['textfile'].doc = await openDocument('textfile');
@@ -36,8 +35,8 @@ suite('VsCode AlexLinter Test Suite', async () => {
 		);
 	}).timeout(10000);
 
-	// Check all commands are here
-	test("1.1 Check AlexLinter VsCode commands", async () => {
+	// Check if all commands are there
+	test("1.1 Check number of AlexLinter VsCode commands", async () => {
 		const allCommands = await vscode.commands.getCommands();
 		debug('Commands found: ' + JSON.stringify(allCommands));
 		const alexLinterCommands = allCommands.filter((command) => {
@@ -45,9 +44,21 @@ suite('VsCode AlexLinter Test Suite', async () => {
 		});
 		assert(
 			alexLinterCommands.length === numberOfAlexLinterCommands,
-			`${numberOfAlexLinterCommands} AlexLinter commands found (returned ${alexLinterCommands.length})`
+			`${alexLinterCommands.length} of ${numberOfAlexLinterCommands} AlexLinter commands found`
 		);
 	}).timeout(5000);
+
+	// Lint example document
+	test("2.0 Lint example document", async () => {
+		//testDocs['textfile'].doc = await openDocument('textfile');
+		await waitUntil(() => diagnosticsChanged(testDocs['textfile'].doc.uri, []), 60000);
+		const docDiagnostics = vscode.languages.getDiagnostics(testDocs['textfile'].doc.uri);
+
+		assert(
+			docDiagnostics.length >= testDocs['textfile'].numberOfProblems,
+			`${docDiagnostics.length} of ${testDocs['textfile'].numberOfProblems} AlexLinter diagnostics found`
+		);
+	}).timeout(60000);
 });
 
 // Execute VsCode command
@@ -130,7 +141,6 @@ function diagnosticsChanged(docUri: vscode.Uri, prevDiags: vscode.Diagnostic[]):
 			docDiags.length !== prevDiags.length && !isWaitingDiagnostic(docDiags)
 		) {
 			diagsChanged = true;
-			console.log(`Diagnostics changed for ${docUri} (${docDiags.length}) `);
 			resolve(true);
 		}
 		const disposable = vscode.languages.onDidChangeDiagnostics((e: vscode.DiagnosticChangeEvent) => {
@@ -138,7 +148,6 @@ function diagnosticsChanged(docUri: vscode.Uri, prevDiags: vscode.Diagnostic[]):
 				const docDiags = vscode.languages.getDiagnostics(docUri);
 				if (docDiags && docDiags.length > 0 && !isWaitingDiagnostic(docDiags)) {
 					diagsChanged = true;
-					console.log(`Diagnostics changed for ${docUri} (${docDiags.length}) `);
 				}
 			}
 		});
