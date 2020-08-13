@@ -127,7 +127,7 @@ connection.onCodeAction(async (codeActionParams: CodeActionParams): Promise<Code
         return [];
     }
     const document = docManager.getDocumentFromUri(codeActionParams.textDocument.uri);
-    if (document == null) {
+    if (!document) {
         return [];
     }
     const docQuickFixes: any = docManager.getDocQuickFixes(codeActionParams.textDocument.uri);

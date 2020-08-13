@@ -84,7 +84,7 @@ export class AlexVSCode {
     private parseMessage(message: string): { result: string, replace: string[] } {
         const results = message?.split(', use');
         const replace = this.getOdd(results?.[1]?.split('`'));
-        return { result: results?.[0], replace }
+        return { result: results?.[0], replace };
     }
 
     /**
@@ -94,7 +94,7 @@ export class AlexVSCode {
     private getOdd(candid: string[]): string[] {
         var oddOnes: string[] = [];
         for (var i = 0; i < candid?.length; i++) {
-            (i % 2 == 0 ? [] : oddOnes).push(candid[i]);
+            (i % 2 === 0 ? [] : oddOnes).push(candid[i]);
         }
         return oddOnes;
     }

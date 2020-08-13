@@ -76,7 +76,7 @@ function createQuickFixCodeActions(diagnostic: Diagnostic, quickFix: any, textDo
 // Apply quick fixes
 export async function applyQuickFixes(diagnostic: Diagnostic, textDocumentUri: string, edits: string, docManager: DocumentManager) {
     // Sometimes it comes there whereas it shouldn't ... let's avoid a crash
-    if (diagnostic == null) {
+    if (!diagnostic) {
         console.warn('Warning: no diagnostics set');
         return;
     }
