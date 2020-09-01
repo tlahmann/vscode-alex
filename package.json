@@ -92,15 +92,15 @@
         "test": "sh ./scripts/e2e.sh"
     },
     "devDependencies": {
-        "@types/mocha": "^8.0.1",
-        "@types/node": "^14.0",
-        "@types/vscode": "^1.47",
-        "eslint": "^7.0.0",
+        "@types/mocha": "^8.0.3",
+        "@types/node": "^14.6.2",
+        "@types/vscode": "^1.48.0",
+        "eslint": "^7.8.0",
         "is-md": "^2.0.0",
-        "merge-options": "^2.0.0",
+        "merge-options": "^3.0",
         "rimraf": "^3.0.2",
-        "ts-loader": "^8.0.2",
-        "typescript": "^3.9",
+        "ts-loader": "^8.0.3",
+        "typescript": "^4.0",
         "webpack": "^4.44.1",
         "webpack-cli": "^3.3.12"
     },
