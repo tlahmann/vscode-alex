@@ -12,13 +12,12 @@
         "url": "https://github.com/Microsoft/vscode-extension-samples"
     },
     "dependencies": {
-        "alex": "^8.2.0",
-        "alex-vscode": "1.0.0",
-        "vscode-languageserver": "^6.1.1",
+        "alex": "^9.1",
+        "vscode-languageserver": "^7.0",
         "vscode-languageserver-textdocument": "^1.0.1"
     },
     "devDependencies": {
-        "@types/vscode": "^1.47",
+        "@types/vscode": "^1.52",
         "vscode-test": "^1.3.0"
     },
     "scripts": {}
